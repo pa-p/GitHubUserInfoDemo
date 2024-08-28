@@ -22,9 +22,13 @@ namespace GitHubUserInfoDemo.Controllers
 
         [HttpGet("{login}")]
         [ProducesResponseType(typeof(GitHubUserInfoResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<GitHubUserInfoResponse>> GetUser([FromRoute] string login)
         {
-            var user = await _gitHubService.GetUserInfosByLogin(login).ConfigureAwait(false);                        
+            var user = await _gitHubService.GetUserInfosByLogin(login).ConfigureAwait(false);
+            if (!user.Login.Equals(login, StringComparison.InvariantCultureIgnoreCase))
+                return NotFound();
+
             var repos = await _gitHubService.GetRepoInfosByLogin(login).ConfigureAwait(false);
             
             return Ok(await _gitHubResponseProcessorService.ProcessData(user, repos));
@@ -32,10 +36,14 @@ namespace GitHubUserInfoDemo.Controllers
 
         [HttpGet("{login}/repos")]
         [ProducesResponseType(typeof(GitHubRepoInfo), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<GitHubRepoInfo>> GetUserRepos([FromRoute] string login)
         {
-            var result = await _gitHubService.GetRepoInfosByLogin(login).ConfigureAwait(false);            
-            return Ok(result);
+            var repos = await _gitHubService.GetRepoInfosByLogin(login).ConfigureAwait(false);
+            if (!repos.Any())
+                return NotFound();
+
+            return Ok(repos);
         }
     }
 }

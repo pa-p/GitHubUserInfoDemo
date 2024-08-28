@@ -14,28 +14,29 @@ namespace GitHubUserInfoDemo.Services
         public async Task<GitHubUserInfo> GetUserInfosByLogin(string login)
         {
             var endpoint = $"users/{login}";
-
+            var user = new GitHubUserInfo();
             HttpResponseMessage response = await _httpClient.GetAsync(endpoint);
             if(response.IsSuccessStatusCode)
             {
-                return await response.Content.ReadFromJsonAsync<GitHubUserInfo>();
+                user = await response.Content.ReadFromJsonAsync<GitHubUserInfo>();
             }
-
-            throw new Exception("Something went wrong");
+            
+            return user;
 
         }
 
         public async Task<IEnumerable<GitHubRepoInfo>> GetRepoInfosByLogin(string login)
         {
             var endpoint = $"users/{login}/repos";
+            var repos = new List<GitHubRepoInfo>();
 
             HttpResponseMessage response = await _httpClient.GetAsync(endpoint);
             if (response.IsSuccessStatusCode)
             {
-                return await response.Content.ReadFromJsonAsync<List<GitHubRepoInfo>>();
+                repos = await response.Content.ReadFromJsonAsync<List<GitHubRepoInfo>>();
             }
 
-            throw new Exception("Something went wrong");
+            return repos;
 
         }
     }
