@@ -3,3 +3,7 @@
 GET {{GitHubUserInfoDemo_HostAddress}}/api/githubuserinfo/pa-p
 
 ###
+
+GET {{GitHubUserInfoDemo_HostAddress}}/api/githubuserinfocached/pa-p
+
+###
