@@ -1,5 +1,7 @@
 using GitHubUserInfoDemo;
+using GitHubUserInfoDemo.Data;
 using GitHubUserInfoDemo.Services;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +12,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddGitHubService(new Uri(builder.Configuration.GetSection("GitHubSettings:BaseApiUrl").Value));
-                
+builder.Services.AddDbContext<GitHubUserInfoEFDataContext>(
+    options =>
+    {
+        options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+    }
+    );                
 
 var app = builder.Build();
 
