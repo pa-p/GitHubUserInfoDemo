@@ -11,9 +11,9 @@ namespace GitHubUserInfoDemo.Services
             _httpClient = httpClient;
         }
 
-        public async Task<GitHubUserInfo> GetUserInfosByOwner(string owner)
+        public async Task<GitHubUserInfo> GetUserInfosByLogin(string login)
         {
-            var endpoint = $"users/{owner}";
+            var endpoint = $"users/{login}";
 
             HttpResponseMessage response = await _httpClient.GetAsync(endpoint);
             if(response.IsSuccessStatusCode)
@@ -25,9 +25,9 @@ namespace GitHubUserInfoDemo.Services
 
         }
 
-        public async Task<IEnumerable<GitHubRepoInfo>> GetRepoInfosByOwner(string owner)
+        public async Task<IEnumerable<GitHubRepoInfo>> GetRepoInfosByLogin(string login)
         {
-            var endpoint = $"users/{owner}/repos";
+            var endpoint = $"users/{login}/repos";
 
             HttpResponseMessage response = await _httpClient.GetAsync(endpoint);
             if (response.IsSuccessStatusCode)

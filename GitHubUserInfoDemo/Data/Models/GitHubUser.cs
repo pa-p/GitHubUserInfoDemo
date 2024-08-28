@@ -5,6 +5,10 @@ namespace GitHubUserInfoDemo.Data.Models
 {
     public class GitHubUser
     {
+        public GitHubUser()
+        {
+            Repos = new HashSet<GitHubRepo>();
+        }
         public long Id { get; set; }
         public string Login { get; set; } = string.Empty;        
         public long GitHubId { get; set; }        
@@ -29,7 +33,7 @@ namespace GitHubUserInfoDemo.Data.Models
         public string Blog { get; set; } = string.Empty;        
         public string? Location { get; set; }        
         public string? Email { get; set; }        
-        public string? Hireable { get; set; }        
+        public bool? Hireable { get; set; }        
         public string? Bio { get; set; }        
         public string? TwitterUsername { get; set; }       
         public long PublicRepos { get; set; }        

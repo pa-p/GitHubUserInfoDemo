@@ -4,6 +4,7 @@ using GitHubUserInfoDemo.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GitHubUserInfoDemo.Migrations
 {
     [DbContext(typeof(GitHubUserInfoEFDataContext))]
-    partial class GitHubUserInfoEFDataContextModelSnapshot : ModelSnapshot
+    [Migration("20240828154457_GitHubRepoMakeDescriptionNullable")]
+    partial class GitHubRepoMakeDescriptionNullable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -161,6 +164,7 @@ namespace GitHubUserInfoDemo.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Language")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LanguagesUrl")
@@ -314,8 +318,8 @@ namespace GitHubUserInfoDemo.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool?>("Hireable")
-                        .HasColumnType("bit");
+                    b.Property<string>("Hireable")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("HtmlUrl")
                         .IsRequired()

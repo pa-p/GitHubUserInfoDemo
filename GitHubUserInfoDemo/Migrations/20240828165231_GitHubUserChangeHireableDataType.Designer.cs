@@ -4,6 +4,7 @@ using GitHubUserInfoDemo.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GitHubUserInfoDemo.Migrations
 {
     [DbContext(typeof(GitHubUserInfoEFDataContext))]
-    partial class GitHubUserInfoEFDataContextModelSnapshot : ModelSnapshot
+    [Migration("20240828165231_GitHubUserChangeHireableDataType")]
+    partial class GitHubUserChangeHireableDataType
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

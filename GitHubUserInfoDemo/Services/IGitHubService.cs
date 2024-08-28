@@ -4,7 +4,7 @@ namespace GitHubUserInfoDemo.Services
 {
     public interface IGitHubService
     {
-        Task<GitHubUserInfo> GetUserInfosByOwner(string owner);
-        Task<IEnumerable<GitHubRepoInfo>> GetRepoInfosByOwner(string owner);
+        Task<GitHubUserInfo> GetUserInfosByLogin(string login);
+        Task<IEnumerable<GitHubRepoInfo>> GetRepoInfosByLogin(string login);
     }
 }

@@ -13,7 +13,7 @@ namespace GitHubUserInfoDemo.Data.Models
         public string FullName { get; set; } = string.Empty;       
         public bool PrivateRepo { get; set; }        
         public string HtmlUrl { get; set; } = string.Empty;        
-        public string Description { get; set; } = string.Empty;        
+        public string? Description { get; set; }        
         public bool Fork { get; set; }        
         public string Url { get; set; } = string.Empty;        
         public string ForksUrl { get; set; } = string.Empty;        
@@ -59,7 +59,7 @@ namespace GitHubUserInfoDemo.Data.Models
         public string SshUrl { get; set; } = string.Empty;        
         public string CloneUrl { get; set; } = string.Empty;        
         public int WatchersCount { get; set; }        
-        public string Language { get; set; } = string.Empty;                
+        public string? Language { get; set; }                
         public string Visibility { get; set; } = string.Empty;        
         public long Forks { get; set; }      
         public long Watchers { get; set; }        

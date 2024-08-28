@@ -18,7 +18,8 @@ builder.Services.AddDbContext<GitHubUserInfoEFDataContext>(
     {
         options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
     }
-    );                
+    ); 
+builder.Services.AddTransient<IGitHubUserInfoDataService, GitHubUserInfoDataService>();
 
 var app = builder.Build();
 
