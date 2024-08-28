@@ -30,11 +30,11 @@ namespace GitHubUserInfoDemo.Controllers
             return Ok(await _gitHubResponseProcessorService.ProcessData(user, repos));
         }
 
-        [HttpGet("{owner}/repos")]
+        [HttpGet("{login}/repos")]
         [ProducesResponseType(typeof(GitHubRepoInfo), StatusCodes.Status200OK)]
-        public async Task<ActionResult<GitHubRepoInfo>> GetUserRepos([FromRoute] string owner)
+        public async Task<ActionResult<GitHubRepoInfo>> GetUserRepos([FromRoute] string login)
         {
-            var result = await _gitHubService.GetRepoInfosByLogin(owner).ConfigureAwait(false);            
+            var result = await _gitHubService.GetRepoInfosByLogin(login).ConfigureAwait(false);            
             return Ok(result);
         }
     }
