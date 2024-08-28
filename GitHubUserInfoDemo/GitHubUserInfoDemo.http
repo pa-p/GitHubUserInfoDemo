@@ -1,1 +1,5 @@
-@GitHubUserInfoDemo_HostAddress = http://localhost:5138
+@GitHubUserInfoDemo_HostAddress = https://localhost:7041
+
+GET {{GitHubUserInfoDemo_HostAddress}}/api/githubuserinfo/pa-p
+
+###
