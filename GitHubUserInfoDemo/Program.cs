@@ -20,6 +20,7 @@ builder.Services.AddDbContext<GitHubUserInfoEFDataContext>(
     }
     ); 
 builder.Services.AddTransient<IGitHubUserInfoDataService, GitHubUserInfoDataService>();
+builder.Services.AddTransient<IGitHubResponseProcessorService, GitHubResponseProcessorService>();
 
 var app = builder.Build();
 

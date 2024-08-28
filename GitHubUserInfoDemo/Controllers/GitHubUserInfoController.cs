@@ -1,4 +1,6 @@
-﻿using GitHubUserInfoDemo.Models;
+﻿using AutoMapper;
+using GitHubUserInfoDemo.Data.Models;
+using GitHubUserInfoDemo.Models;
 using GitHubUserInfoDemo.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -10,25 +12,29 @@ namespace GitHubUserInfoDemo.Controllers
     public class GitHubUserInfoController : ControllerBase
     {
         private readonly IGitHubService _gitHubService;
+        private readonly IGitHubResponseProcessorService _gitHubResponseProcessorService;
 
-        public GitHubUserInfoController(IGitHubService gitHubService)
+        public GitHubUserInfoController(IGitHubService gitHubService, IGitHubResponseProcessorService gitHubResponseProcessorService)
         {
             _gitHubService = gitHubService;
+            _gitHubResponseProcessorService = gitHubResponseProcessorService;
         }
 
-        [HttpGet("{owner}")]
-        [ProducesResponseType(typeof(GitHubUserInfo), StatusCodes.Status200OK)]
-        public async Task<ActionResult<GitHubUserInfo>> GetUser([FromRoute] string owner)
+        [HttpGet("{login}")]
+        [ProducesResponseType(typeof(GitHubUserInfoResponse), StatusCodes.Status200OK)]
+        public async Task<ActionResult<GitHubUserInfoResponse>> GetUser([FromRoute] string login)
         {
-            var result = await _gitHubService.GetUserInfosByOwner(owner).ConfigureAwait(false);
-            return Ok(result);
+            var user = await _gitHubService.GetUserInfosByLogin(login).ConfigureAwait(false);                        
+            var repos = await _gitHubService.GetRepoInfosByLogin(login).ConfigureAwait(false);
+            
+            return Ok(await _gitHubResponseProcessorService.ProcessData(user, repos));
         }
 
         [HttpGet("{owner}/repos")]
         [ProducesResponseType(typeof(GitHubRepoInfo), StatusCodes.Status200OK)]
         public async Task<ActionResult<GitHubRepoInfo>> GetUserRepos([FromRoute] string owner)
         {
-            var result = await _gitHubService.GetRepoInfosByOwner(owner).ConfigureAwait(false);
+            var result = await _gitHubService.GetRepoInfosByLogin(owner).ConfigureAwait(false);            
             return Ok(result);
         }
     }
